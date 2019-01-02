@@ -51,7 +51,6 @@ object Main extends App {
     println("pelouse : " + pelouse)
     println("tondeuses : " + tondeuses)
     println("mouvements : " + mouvements)
-    println("******************Mouvements***********************")
     //--------------------deplacement ---------------------
     if(tondeuses!=Nil && mouvements!=Nil && tondeuses.size == mouvements.size) {
       for( i <- 0 to tondeuses.size - 1) pelouse.addTondeuse(TondeuseAction.deplacement(tondeuses(i),mouvements(i),pelouse))

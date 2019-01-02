@@ -13,11 +13,16 @@ object TondeuseAction {
     }
   }
 
+  //Pour eviter toute collision on va tester si une tondeuse n'est pas déjà à la poition qu'on veut acceder dans ce cas la tondeusene bouge pas
   def directionA(t: Tondeuse,pelouse: Pelouse) : Tondeuse  = t.getO match {
-    case Orientation.E if(pelouse.getX > t.getX) => Tondeuse(t.x+1,t.y,t.o)
-    case Orientation.N if(pelouse.getY > t.getY)  => Tondeuse(t.x,t.y+1,t.o)
-    case Orientation.S if(t.getY > 0)  => Tondeuse(t.x,t.y-1,t.o)
-    case Orientation.W if(t.getX > 0) => Tondeuse(t.x-1,t.y,t.o)
+    case Orientation.E if((pelouse.getX > t.getX) && (pelouse.testPosition(Tondeuse(t.x+1,t.y,t.o),pelouse.tondeuses.toList)))
+          => Tondeuse(t.x+1,t.y,t.o)
+    case Orientation.N if((pelouse.getY > t.getY)  && (pelouse.testPosition(Tondeuse(t.x,t.y+1,t.o),pelouse.tondeuses.toList)))
+        => Tondeuse(t.x,t.y+1,t.o)
+    case Orientation.S if((t.getY > 0) && (pelouse.testPosition(Tondeuse(t.x,t.y-1,t.o),pelouse.tondeuses.toList)))
+        => Tondeuse(t.x,t.y-1,t.o)
+    case Orientation.W if(t.getX > 0) && (pelouse.testPosition(Tondeuse(t.x-1,t.y,t.o),pelouse.tondeuses.toList))
+        => Tondeuse(t.x-1,t.y,t.o)
     case _ => t
   }
 
